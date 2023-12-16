@@ -21,7 +21,7 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    output_file = str(int(time.time())) + ".jsonl"
+    output_file = f"{int(time.time())}.jsonl"
 
     con = sqlite3.connect(args.db, check_same_thread=False)
     cur = con.cursor()
@@ -38,9 +38,9 @@ if __name__ == "__main__":
             json.dump(obj, f, ensure_ascii=False)
             f.write('\n')
 
-    print("Wrote %s" % output_file)
+    print(f"Wrote {output_file}")
 
     if args.clear:
         cur.execute("DELETE FROM suggestions")
         con.commit()
-        print("Cleared " + args.db)
+        print(f"Cleared {args.db}")

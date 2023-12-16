@@ -29,10 +29,8 @@ def on_starting(server):
     sys.argv = ['--wsgi']
     for k in kwargs:
         ck = k.replace("_", "-")
-        if isinstance(kwargs[k], bool) and kwargs[k]:
-            sys.argv.append("--" + ck)
-        else:
-            sys.argv.append("--" + ck)
+        sys.argv.append(f"--{ck}")
+        if not isinstance(kwargs[k], bool) or not kwargs[k]:
             sys.argv.append(kwargs[k])
 
     args = get_args()

@@ -197,7 +197,7 @@ def get_args():
     )
     args = parser.parse_args()
     if args.url_prefix and not args.url_prefix.startswith('/'):
-        args.url_prefix = '/' + args.url_prefix
+        args.url_prefix = f'/{args.url_prefix}'
     return args
 
 
@@ -207,22 +207,21 @@ def main():
 
     if '--wsgi' in sys.argv:
         return app
+    if args.debug:
+        app.run(host=args.host, port=args.port)
     else:
-        if args.debug:
-            app.run(host=args.host, port=args.port)
-        else:
-            from waitress import serve
+        from waitress import serve
 
-            url_scheme = "https" if args.ssl else "http"
-            print(f"Running on {url_scheme}://{args.host}:{args.port}{args.url_prefix}")
+        url_scheme = "https" if args.ssl else "http"
+        print(f"Running on {url_scheme}://{args.host}:{args.port}{args.url_prefix}")
 
-            serve(
-                app,
-                host=args.host,
-                port=args.port,
-                url_scheme=url_scheme,
-                threads=args.threads
-            )
+        serve(
+            app,
+            host=args.host,
+            port=args.port,
+            url_scheme=url_scheme,
+            threads=args.threads
+        )
 
 
 if __name__ == "__main__":
