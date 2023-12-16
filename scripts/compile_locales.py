@@ -13,10 +13,12 @@ if __name__ == "__main__":
         print("-------- | -------- | ------------")
 
         for l in locales:
-            link = "https://hosted.weblate.org/translate/libretranslate/app/%s/" % l['code']
+            link = f"https://hosted.weblate.org/translate/libretranslate/app/{l['code']}/"
             if l['code'] == 'en':
                 link = "https://hosted.weblate.org/projects/libretranslate/app/"
-            print("{} | {} | {}".format(l['name'], ':heavy_check_mark:' if l['reviewed'] else '', "[Edit](%s)" % link))
+            print(
+                f"{l['name']} | {':heavy_check_mark:' if l['reviewed'] else ''} | [Edit]({link})"
+            )
     else:
         locales_dir = os.path.join("libretranslate", "locales")
         if not os.path.isdir(locales_dir):

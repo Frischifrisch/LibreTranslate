@@ -10,11 +10,11 @@ class Database:
     def __init__(self, db_path=DEFAULT_DB_PATH, max_cache_len=1000, max_cache_age=30):
         # Legacy check - this can be removed at some point in the near future
         if os.path.isfile("suggestions.db") and not os.path.isfile("db/suggestions.db"):
-            print("Migrating {} to {}".format("suggestions.db", "db/suggestions.db"))
+            print('Migrating suggestions.db to db/suggestions.db')
             try:
                 os.rename("suggestions.db", "db/suggestions.db")
             except Exception as e:
-                print(str(e))
+                print(e)
 
         self.db_path = db_path
         self.cache = ExpiringDict(max_len=max_cache_len, max_age_seconds=max_cache_age)

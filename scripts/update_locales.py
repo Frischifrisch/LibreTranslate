@@ -42,7 +42,7 @@ if __name__ == "__main__":
 
     swag_strings = []
     def add_swag_string(s):
-        if not s in swag_strings:
+        if s not in swag_strings:
             swag_strings.append(s)
     swag_eval(swag, add_swag_string)
 

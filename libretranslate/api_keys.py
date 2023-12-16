@@ -14,11 +14,11 @@ class Database:
     def __init__(self, db_path=DEFAULT_DB_PATH, max_cache_len=1000, max_cache_age=30):
         # Legacy check - this can be removed at some point in the near future
         if os.path.isfile("api_keys.db") and not os.path.isfile("db/api_keys.db"):
-            print("Migrating {} to {}".format("api_keys.db", "db/api_keys.db"))
+            print('Migrating api_keys.db to db/api_keys.db')
             try:
                 os.rename("api_keys.db", "db/api_keys.db")
             except Exception as e:
-                print(str(e))
+                print(e)
 
         db_dir = os.path.dirname(db_path)
         if db_dir != '' and not os.path.exists(db_dir):
@@ -90,7 +90,7 @@ class RemoteDatabase:
                 r = requests.post(self.url, data={'api_key': api_key}, timeout=60)
                 res = r.json()
             except Exception as e:
-                print("Cannot authenticate API key: " + str(e))
+                print(f"Cannot authenticate API key: {str(e)}")
                 return None
 
             req_limit = res.get('req_limit', None) if res.get('error', None) is None else None

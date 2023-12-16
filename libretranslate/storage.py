@@ -118,27 +118,18 @@ class RedisStorage(Storage):
 
     def get_int(self, key):
         v = self.conn.get(key)
-        if v is None:
-            return 0
-        else:
-            return v
+        return 0 if v is None else v
 
     def set_str(self, key, value):
         self.conn.set(key, value)
 
     def get_str(self, key):
         v = self.conn.get(key)
-        if v is None:
-            return ""
-        else:
-            return v.decode('utf-8')
+        return "" if v is None else v.decode('utf-8')
 
     def get_hash_int(self, ns, key):
         v = self.conn.hget(ns, key)
-        if v is None:
-            return 0
-        else:
-            return int(v)
+        return 0 if v is None else int(v)
 
     def set_hash_int(self, ns, key, value):
         self.conn.hset(ns, key, value)
@@ -162,6 +153,6 @@ def setup(storage_uri):
     elif storage_uri.startswith("redis://"):
         storage = RedisStorage(storage_uri)
     else:
-        raise Exception("Invalid storage URI: " + storage_uri)
+        raise Exception(f"Invalid storage URI: {storage_uri}")
 
     return storage

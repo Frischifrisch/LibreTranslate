@@ -39,7 +39,7 @@ def detect_languages(text):
                 d[i].text_length = len(t)
             candidates.extend(d)
         except Exception as e:
-            print(str(e))
+            print(e)
 
     # total read bytes of the provided text
     text_length_total = sum(c.text_length for c in candidates)

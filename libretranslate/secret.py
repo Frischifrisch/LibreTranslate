@@ -16,7 +16,7 @@ def rotate_secrets():
 
 def secret_match(secret):
     s = get_storage()
-    return secret == s.get_str("secret_0") or secret == s.get_str("secret_1")
+    return secret in [s.get_str("secret_0"), s.get_str("secret_1")]
 
 def get_current_secret():
     return get_storage().get_str("secret_1")
